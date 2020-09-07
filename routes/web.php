@@ -37,10 +37,18 @@ Route::get('/verificate/{user}/{kod}', 'UserController@verificateForm')->name('u
 Route::middleware(['sentinelauth' ])->group(function(){
 
 Route::get('/user/{user}/profile','UserController@userprofile')->name('user.profile');
+Route::get('/user/{user}/orders','UserController@orders')->name('user.orders');
+Route::get('/products','UserController@products')->name('products');
+
+
 Route::put('/user/{user}/edit','UserController@edit')->name('user.edit');
 
 Route::get('/','HomeController@show')->name('home');
 
 
 });
+
+
+
+
 

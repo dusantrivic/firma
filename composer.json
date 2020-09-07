@@ -18,6 +18,8 @@
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.1",
+        "paypal/rest-api-sdk-php": "^1.14",
+        "srmklive/paypal": "^1.8",
         "symfony/http-foundation": "^5.1"
     },
     "require-dev": {
