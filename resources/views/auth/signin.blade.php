@@ -31,6 +31,9 @@
         <a href="{{route('reset.password.email')}}">Forgot your password?</a>
     </div>
 
+<a class="btn btn-block btn-social btn-facebook" href="{{route('login.facebook')}}">
+        <span class="fa fa-facebook"></span> Sign in with Facebook
+      </a>
     <p class="mt-5 mb-3 text-muted">&copy; 2020-2022</p>
 </form>
 

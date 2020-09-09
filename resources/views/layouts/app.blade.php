@@ -10,6 +10,9 @@
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/starter-template/">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
     <!-- Bootstrap core CSS -->
 <link href="/docs/4.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous">
 
@@ -51,6 +54,8 @@
     <link href="{{asset('css/dashboard.css')}}
     " rel="stylesheet">
 
+    <link href="{{asset('css/bootstrap-social.css')}}
+    " rel="stylesheet">
 
   </head>
   <body>

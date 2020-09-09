@@ -37,4 +37,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function productss(){
+        return $this->belongsToMany(Products::class);
+    }
+
+
 }

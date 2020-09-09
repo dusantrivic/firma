@@ -163,6 +163,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Cartalyst\Sentinel\Laravel\SentinelServiceProvider::class,
         Srmklive\PayPal\Providers\PayPalServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -232,6 +233,7 @@ return [
         'Sentinel'   => Cartalyst\Sentinel\Laravel\Facades\Sentinel::class,
         'PayPal' => Srmklive\PayPal\Facades\PayPal::class,
         'Input' => Illuminate\Support\Facades\Request::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
 
     ],
 

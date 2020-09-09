@@ -112,14 +112,7 @@ class UserController extends Controller
 
         return view('user.profile',['user'=>$user]);
     }
-    public function orders(User $user){
 
-        return view('user.orders',['user'=>$user]);
-    }
-    public function products(){
-
-        return view('user.products' );
-    }
 
     public function edit(User $user){
 

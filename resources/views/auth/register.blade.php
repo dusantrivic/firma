@@ -12,6 +12,9 @@
   <label for="inputPassword" class="sr-only">Password Confirm</label>
   <input type="password" name="password_confirmation" id="inputPassword" class="form-control" placeholder="Password" required>
   <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+  <a class="btn btn-block btn-social btn-facebook" href="{{route('login.facebook')}}">
+    <span class="fa fa-facebook"></span> Sign in with Facebook
+  </a>
   <p class="mt-5 mb-3 text-muted">&copy; 2020-2022</p>
 </form>
 

@@ -16,6 +16,7 @@
         "illuminate/database": "^7.23",
         "illuminate/events": "^7.23",
         "laravel/framework": "^7.0",
+        "laravel/socialite": "^5.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.1",
         "paypal/rest-api-sdk-php": "^1.14",

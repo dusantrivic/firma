@@ -1,6 +1,8 @@
 <?php
 namespace App\Http\Controllers;
 
+ use App\User;
+use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use PayPal\Api\Amount;
@@ -17,8 +19,7 @@ use PayPal\Api\Transaction;
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Rest\ApiContext;
 use Redirect;
-use Session;
-use URL;
+ use URL;
 
 
 class PaymentController extends Controller
@@ -29,8 +30,11 @@ class PaymentController extends Controller
      *
      * @return void
      */
+
     public function __construct()
     {
+
+
 
         /** PayPal api context **/
         $paypal_conf1 = config('paypal');
@@ -42,8 +46,18 @@ class PaymentController extends Controller
         $this->_api_context->setConfig($paypal_conf1['settings']);
      }
 
-    public function payWithpaypal(Request $request)
+    public function payWithpaypal($user_id )
     {
+
+         $user=User::findorfail($user_id);
+        $products=$user->productss;
+        $amount1=0;
+        foreach($products as $product){
+            $amount1=$amount1+$product->price;
+        }
+
+        $amount_string = sprintf("%.2f", $amount1);
+
 
         $payer = new Payer();
         $payer->setPaymentMethod('paypal');
@@ -52,14 +66,16 @@ class PaymentController extends Controller
         $item_1->setName('Item 1') /** item name **/
             ->setCurrency('USD')
             ->setQuantity(1)
-            ->setPrice($request->get('amount')); /** unit price **/
+            ->setPrice($amount_string); /** unit price **/
 
         $item_list = new ItemList();
         $item_list->setItems(array($item_1));
 
+
+
         $amount = new Amount();
         $amount->setCurrency('USD')
-            ->setTotal($request->get('amount'));
+            ->setTotal($amount_string);
 
         $transaction = new Transaction();
         $transaction->setAmount($amount)
@@ -84,12 +100,12 @@ class PaymentController extends Controller
             if (\Config::get('app.debug')) {
 
                 \Session::put('error', 'Connection timeout');
-                return Redirect::to('/user/{user}/orders');
+                return redirect()->route('user.orders',Sentinel::getUser()->id);
 
             } else {
 
                 \Session::put('error', 'Some error occur, sorry for inconvenient');
-                return Redirect::to('/user/{user}/orders');
+                return redirect()->route('user.orders',Sentinel::getUser()->id);
 
             }
 
@@ -105,35 +121,32 @@ class PaymentController extends Controller
             }
 
         }
-
-
-        /** add payment ID to session **/
-
-        session()->put('paypal_payment_id', $payment->getId());
-         if (isset($redirect_url)) {
-
+          /** add payment ID to session **/
+         session()->put('paypal_payment_id', $payment->getId());
+          if (isset($redirect_url)) {
             /** redirect to paypal **/
             return Redirect::away($redirect_url);
 
         }
 
         \Session::put('error', 'Unknown error occurred');
-        return Redirect::to('/user/{user}/orders');
+        return redirect()->route('user.orders',Sentinel::getUser()->id);
 
     }
 
     public function getPaymentStatus(Request $request)
     {
+
         /** Get the payment ID before session clear **/
         $payment_id = session()->get('paypal_payment_id');
 
-        /** clear the session payment ID **/
+         /** clear the session payment ID **/
          session()-> forget('paypal_payment_id');
         if (empty($request->get('PayerID')) || empty($request->get('token'))) {
 
             \Session::put('error', 'Payment failed');
-            return Redirect::to('/user/{user}/orders');
-
+            // return Redirect::to('/');
+            return redirect()->route('user.orders',Sentinel::getUser()->id);
         }
 
         $payment = Payment::get($payment_id, $this->_api_context);
@@ -146,12 +159,14 @@ class PaymentController extends Controller
          if ($result->getState() == 'approved') {
 
             \Session::put('success', 'Payment success');
-            return Redirect::to('/user/{user}/orders');
+            // return Redirect::to('/');
+            return redirect()->route('user.orders',Sentinel::getUser()->id);
 
         }
 
         \Session::put('error', 'Payment failed');
-        return Redirect::to('/user/{user}/orders');
+        // return Redirect::to('/');
+        return redirect()->route('user.orders',Sentinel::getUser()->id);
 
     }
 

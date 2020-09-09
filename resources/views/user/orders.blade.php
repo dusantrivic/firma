@@ -3,10 +3,14 @@
 <html>
     <head>
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+
+
+
+
     </head>
     <body>
-        <div class="w3-container">
-            @if ($message = Session::get('success'))
+        @if ($message = Session::get('success'))
             <div class="w3-panel w3-green w3-display-container">
                 <span onclick="this.parentElement.style.display='none'"
                         class="w3-button w3-green w3-large w3-display-topright">&times;</span>
@@ -23,18 +27,52 @@
             </div>
             <?php Session::forget('error');?>
             @endif
+        <div class="box">
+            <form   method="post" id="payment-form"
+              action="{{route('paypal',Sentinel::getUser()->id)}}">
+              @csrf
 
-            <form class="w3-container w3-display-middle w3-card-4 w3-padding-16" method="POST" id="payment-form"
-              action="{!! URL::to('paypal') !!}">
-              <div class="w3-container w3-teal w3-padding-16">Paywith Paypal</div>
-              {{ csrf_field() }}
-              <h2 class="w3-text-blue">Payment Form</h2>
-              <p>Demo PayPal form - Integrating paypal in laravel</p>
-              <label class="w3-text-blue"><b>Enter Amount</b></label>
-              <input class="w3-input w3-border" id="amount" type="text" name="amount"></p>
-              <button class="w3-btn w3-blue">Pay with PayPal</button>
+              <button class="w3-btn  " style="margin:10px;color: blue;background-color: #ffcc00;border-radius: 12px;width: 200px">Pay with PayPal</button>
             </form>
+
         </div>
+        <div class="container" >
+
+
+
+
+
+            <div class="container text-center">
+                @foreach ($products as $product)
+               <form method="post" action="{{route('delete.from.chart',$product->id)}}">
+                @csrf
+                <div  class="card mb-4 shadow-sm  " style="width: 18% ;float: left;margin: 10px;">
+
+                    <div class="card-header">
+                      <h4 class="my-0 font-weight-normal">{{$product->name}}</h4>
+                    </div>
+                    <div class="card-body">
+                      <h1 class="card-title pricing-card-title">{{$product->price}} <small class="text-muted">  $</small></h1>
+
+                    <button type="submit" class="btn btn-lg btn-block btn-outline-primary"   >Delete from chart</button>
+                    </div>
+
+                </div>
+            </form>
+                @endforeach
+
+            </div>
+
+
+
+            </div>
+
+
+
+
+
+
+
     </body>
     </html>
 @endsection
