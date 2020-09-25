@@ -14,7 +14,7 @@ class ChartController extends Controller
 
         $user=User::findorfail($user->id);
          $products=$user->productss;
-         return view('user.orders',['products'=>$products]);
+         return view('user.orders',['user'=>$user, 'products'=>$products]);
     }
 
 

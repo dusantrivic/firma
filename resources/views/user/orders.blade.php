@@ -36,12 +36,7 @@
             </form>
 
         </div>
-        <div class="container" >
-
-
-
-
-
+        {{-- <div class="container" style="overflow: auto">
             <div class="container text-center">
                 @foreach ($products as $product)
                <form method="post" action="{{route('delete.from.chart',$product->id)}}">
@@ -60,19 +55,17 @@
                 </div>
             </form>
                 @endforeach
-
             </div>
+            </div> --}}
 
+<div class="container" style="overflow: auto" id="app">
 
+<orderr :id="{{Sentinel::getUser()->id}}"
+    ></orderr>
+    {{-- <passport-clients></passport-clients>
+    <passport-authorized-clients></passport-authorized-clients>
+    <passport-personal-access-tokens></passport-personal-access-tokens> --}}
+</div>
 
-            </div>
-
-
-
-
-
-
-
-    </body>
     </html>
 @endsection

@@ -1,16 +1,18 @@
 <?php
 
+
 namespace App\Http\Controllers;
 
 use App\Products;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Illuminate\Http\Request;
+
 use App\User;
 
 class ProductsController extends Controller
 {
     public function products(){
-        $products= Products::all();
+        $products= Products::paginate(2) ;
         return view('user.products',['products'=>$products] );
     }
     public function addproduct( $products_id){
