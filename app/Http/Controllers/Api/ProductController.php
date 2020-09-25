@@ -6,8 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\ProductResource;
 use App\Products;
 use App\User;
-use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
-use Illuminate\Http\Request;
+ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -21,12 +20,15 @@ class ProductController extends Controller
 
         return ProductResource::collection($products);
     }
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        // Get article
+        $access_token = $request->bearerToken();
+       $user=User::all()->where('api_token',$access_token)->first();
         $product= Products::findOrFail($id);
 
-        if ($product->delete()) {
+
+
+        if ( $user->productss()->detach($id)) {
             return new ProductResource($product);
         }
 

@@ -14,7 +14,7 @@
         </div>
         <div class="card-body">
           <h1 class="card-title pricing-card-title">{{$product->price}} <small class="text-muted">  $</small></h1>
-        <button type="submit" class="btn btn-lg btn-block btn-outline-primary"   >Add to cart</button>
+        <button type="submit" {{$product->users->contains(Sentinel::getUser()) ? 'disabled' : ''}} class="btn btn-lg btn-block btn-outline-primary"   >Add to cart</button>
         </div>
     </div>
 </form>

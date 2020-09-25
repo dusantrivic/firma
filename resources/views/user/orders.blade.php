@@ -60,7 +60,7 @@
 
 <div class="container" style="overflow: auto" id="app">
 
-<orderr :id="{{Sentinel::getUser()->id}}"
+<orderr :id="{{Sentinel::getUser()->id}}" :token ="{{ json_encode($user->api_token)}}"
     ></orderr>
     {{-- <passport-clients></passport-clients>
     <passport-authorized-clients></passport-authorized-clients>

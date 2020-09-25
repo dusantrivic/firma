@@ -45,6 +45,7 @@ Route::post('/cart/{id}/delete','ProductsController@deletefromchart')->name('del
 
 
 
+Route::post('/token/insert','ApiTokenController@update')->name('refresh.token');
 
 
 Route::put('/user/{user}/edit','UserController@edit')->name('user.edit');

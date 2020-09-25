@@ -10,7 +10,7 @@ class Products extends Model
     protected $guarded = [];
 
     public function users(){
-        return $this->hasMany(User::class);
+        return $this->belongsToMany(User::class);
     }
 
 }

@@ -50,6 +50,7 @@
             }
            },
 
+
             };
         },
 
@@ -95,16 +96,21 @@
             },
             deleteProduct: function(id){
                     if(confirm('Are You Sure')){
-                        fetch('/api/product/'+id,{
+                        axios.delete('/api/product/'+id,this.config
 
-                            method: 'delete'
-                        })
-                        .then(response => response.json())
+
+                        )
+
+                        // .then(response => console.log(response))
                         .then(data => {
-                            alert('Article Removed');
+
+                            console.log(data);
                         this.loadProducts();
                         })
-                        .catch(err => console.log(err));
+                         .catch(function(error){
+                          console.log(error);
+
+            });
 
 
                     }

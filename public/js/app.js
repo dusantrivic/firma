@@ -1995,16 +1995,13 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       if (confirm('Are You Sure')) {
-        fetch('/api/product/' + id, {
-          method: 'delete'
-        }).then(function (response) {
-          return response.json();
-        }).then(function (data) {
-          alert('Article Removed');
+        axios["delete"]('/api/product/' + id, this.config) // .then(response => console.log(response))
+        .then(function (data) {
+          console.log(data);
 
           _this2.loadProducts();
-        })["catch"](function (err) {
-          return console.log(err);
+        })["catch"](function (error) {
+          console.log(error);
         });
       }
     }

@@ -12,7 +12,9 @@ use App\User;
 class ProductsController extends Controller
 {
     public function products(){
+
         $products= Products::paginate(2) ;
+
         return view('user.products',['products'=>$products] );
     }
     public function addproduct( $products_id){

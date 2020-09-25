@@ -88,11 +88,15 @@ id="new_password"
 
 <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+
+
 </div>
 </div>
 
-
-
+<form method="post" action="{{route('refresh.token')}}">
+@csrf
+<button   class="btn btn-primary" >Refresh Token</button>
+</form>
 
 
 @endsection
