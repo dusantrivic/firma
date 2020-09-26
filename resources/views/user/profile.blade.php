@@ -3,7 +3,15 @@
 
 <h1>User Profile of: {{$user->first_name}} {{ $user->last_name}}</h1>
 <div class="row" style="margin-left: 5px">
+
 <div class="col-sm-6">
+    <div class="card " style="float: right ">
+        <form method="post"  action="{{route('refresh.token')}}">
+            @csrf
+            <button   class="btn btn-secondary" >Refresh Token</button>
+            </form>
+    </div>
+
 <form   method="post" action="{{route('user.edit',$user->id)}}" enctype="multipart/form-data">
 @csrf
 @method('PUT')
@@ -87,16 +95,14 @@ id="new_password"
 
 
 <button type="submit" class="btn btn-primary">Submit</button>
+
 </form>
+
 
 
 </div>
 </div>
 
-<form method="post" action="{{route('refresh.token')}}">
-@csrf
-<button   class="btn btn-primary" >Refresh Token</button>
-</form>
 
 
 @endsection

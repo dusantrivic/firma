@@ -67,5 +67,8 @@
     <passport-personal-access-tokens></passport-personal-access-tokens> --}}
 </div>
 
+<div class="container"  style="margin-top: 10%" id="paypalbutton">
+    <paypal></paypal>
+</div>
     </html>
 @endsection
