@@ -14,7 +14,7 @@ class ProductController extends Controller
     public function index($id){
 
          $user=User::findorfail($id);
-         $products=$user->productss()->paginate(2);
+         $products=$user->productss()->paginate(10);
             // $products=Products::paginate(2);
 
 

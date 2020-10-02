@@ -43,6 +43,8 @@ Route::get('/products','ProductsController@products')->name('products');
 Route::post('/cart/{id}','ProductsController@addproduct')->name('add.to.chart');
 Route::post('/cart/{id}/delete','ProductsController@deletefromchart')->name('delete.from.chart');
 
+Route::get('/user/integrations','UserController@integrations')->name('integrations');
+
 
 
 Route::post('/token/insert','ApiTokenController@update')->name('refresh.token');
@@ -67,3 +69,5 @@ Route::get('login/facebook/callback', 'LoginController@handleProviderCallback');
 
 
 
+Route::get('oauth/redirect','OAuthController@redirect')->name('redirect');
+Route::get('oauth/callback','OAuthController@callback');

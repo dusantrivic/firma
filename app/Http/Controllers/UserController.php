@@ -187,5 +187,8 @@ class UserController extends Controller
 
 
     }
+    public function integrations(){
+        return view('user.integrations');
+    }
 }
 

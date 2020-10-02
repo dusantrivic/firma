@@ -13,7 +13,7 @@ class ProductsController extends Controller
 {
     public function products(){
 
-        $products= Products::paginate(2) ;
+        $products= Products::paginate(20) ;
 
         return view('user.products',['products'=>$products] );
     }

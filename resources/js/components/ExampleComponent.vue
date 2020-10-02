@@ -105,7 +105,7 @@
                         .then(data => {
 
                             console.log(data);
-                        this.loadProducts();
+                        this.loadProducts('/api/products/'+this.id + '?page='+this.pagination.current_page);
                         })
                          .catch(function(error){
                           console.log(error);

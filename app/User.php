@@ -41,5 +41,8 @@ class User extends Authenticatable
         return $this->belongsToMany(Products::class);
     }
 
-
+    public function activation()
+    {
+        return $this->hasOne(Activation::class);
+    }
 }

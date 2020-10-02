@@ -1999,7 +1999,7 @@ __webpack_require__.r(__webpack_exports__);
         .then(function (data) {
           console.log(data);
 
-          _this2.loadProducts();
+          _this2.loadProducts('/api/products/' + _this2.id + '?page=' + _this2.pagination.current_page);
         })["catch"](function (error) {
           console.log(error);
         });

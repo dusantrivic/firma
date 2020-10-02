@@ -23,9 +23,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::middleware('auth:api')->group(function(){
 
     Route::get('/products/{id}','Api\ProductController@index') ;
-    // Delete product
+    Route::delete('/product/{id}', 'Api\ProductController@destroy');
 
 
 
 });
-Route::delete('/product/{id}', 'Api\ProductController@destroy');
