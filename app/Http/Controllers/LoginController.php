@@ -55,10 +55,12 @@ class LoginController extends Controller
        }
          }
          else{
+            $names=explode(" ",$userSocialite->getName());
             $credentials1 = [
                 'email'    => $userSocialite->email,
                 'password' => '12345678',
-                'first_name'=>$userSocialite->getName(),
+                'first_name'=>$names[0],
+                'last_name'=>$names[1],
             ];
 
             $user = Sentinel::registerAndActivate($credentials1);

@@ -9,6 +9,7 @@ use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class UserController extends Controller
@@ -123,7 +124,7 @@ class UserController extends Controller
             'first_name'=>['required','string','max:255'],
             'last_name'=>['required','string','max:255' ],
             'email'=>['required','email','max:255' ],
-            'avatar'=>['file' ],
+            'avatar'=>['file'],
              'password'=>[ 'max:255'],
              'new_password'=>[ 'max:255','required_with:password_confirmation|same:password_confirmation'],
              'password_confirmation'=>[ 'max:255'],
@@ -132,63 +133,82 @@ class UserController extends Controller
         ]);
 
 
-            if(Hash::check($inputs['password'], $user->password))
-            {
-                if($inputs['new_password'])
-                {
-                    $inputs['password']= $inputs['new_password'];
-                    $credentials=[
-                        'first_name'=>$inputs['first_name'],
-                        'last_name'=>$inputs['last_name'],
-                        'password'=>$inputs['password'],
-                    ];
-                    $user = Sentinel::findById($user['id']);
-                    $user = Sentinel::update($user, $credentials);
-                   return back();
-                }else{
-                    $credentials=[
-                        'first_name'=>$inputs['first_name'],
-                        'last_name'=>$inputs['last_name'],
-                    ];
-                    $user = Sentinel::findById($user['id']);
-                    $user = Sentinel::update($user, $credentials);
-                   return back();
-                }
-            }else
-        {
-            $credentials=[
-                'first_name'=>$inputs['first_name'],
-                'last_name'=>$inputs['last_name'],
-            ];
-            $user = Sentinel::findById($user['id']);
-            $user = Sentinel::update($user, $credentials);
-           return back();
-    }
 
+        // if(request('avatar')){
+        //            $inputs['avatar']=request('avatar')->store('images');
+        //        }
+    //           if(Hash::check($inputs['password'], $user->password))
+    //         {
+    //             if($inputs['new_password'])
+    //             {
+    //                 $inputs['password']= $inputs['new_password'];
+    //                 $credentials=[
+    //                     'first_name'=>$inputs['first_name'],
+    //                     'last_name'=>$inputs['last_name'],
+    //                     'avatar'=>$inputs['avatar'],
 
+    //                     'password'=>$inputs['password'],
+    //                 ];
+    //                 $user = Sentinel::findById($user['id']);
+    //                 $user = Sentinel::update($user, $credentials);
+    //                return back();
+    //             }else{
+    //                 $credentials=[
+    //                     'first_name'=>$inputs['first_name'],
+    //                     'last_name'=>$inputs['last_name'],
+    //                     'avatar'=>$inputs['avatar'],
 
+    //                 ];
+    //                 $user = Sentinel::findById($user['id']);
+    //                 $user = Sentinel::update($user, $credentials);
+    //                return back();
+    //             }
+    //         }else
+    //     {
+    //         $credentials=[
+    //             'first_name'=>$inputs['first_name'],
+    //             'last_name'=>$inputs['last_name'],
+    //             'avatar'=>$inputs['avatar'],
+    //         ];
+    //          $user = Sentinel::findById($user['id']);
+    //         $user = Sentinel::update($user, $credentials);
 
-
-    //    if(Hash::check($inputs['password'], $user->password))
-    //    {
-    //        if($inputs['new_password'])
-    //        {
-    //            $inputs['password']= Hash::make($inputs['new_password']);
-    //        }
-    //    } else {
-    //        $inputs['password']= $user->password;
-    //    }
-    //    if(request('avatar')){
-    //        $inputs['avatar']=request('avatar')->store('images');
-    //    }
-    //    $user->update($inputs);
-    //   return back();
+    //        return back();
     // }
+
+
+
+
+
+       if(Hash::check($inputs['password'], $user->password))
+       {
+           if($inputs['new_password'])
+           {
+               $inputs['password']= Hash::make($inputs['new_password']);
+           }
+       } else {
+           $inputs['password']= $user->password;
+       }
+       if(request('avatar')){
+           $inputs['avatar']=request('avatar')->store('images');
+       }
+        $user->update($inputs);
+      return back();
+
 
 
     }
     public function integrations(){
         return view('user.integrations');
+    }
+    public function getUserImage()
+    {
+        $user_sentinel=Sentinel::getUser();
+        $user = User::findOrFail($user_sentinel->id);
+        $image = Storage::disk('')->get($user->avatar);
+
+        return $image;
+
     }
 }
 

@@ -17,7 +17,11 @@
 @method('PUT')
 
 <div class="mb-4">
-    <img class="img-profile rounded-circle" style="max-width:50%;" src="  ">
+    @if(Sentinel::getUser()->avatar)
+    <img class="img-profile rounded-circle" style="max-width:50%; height:200px" src="{{route('profile.picture')}} ">
+    @else
+    <img class="img-profile rounded-circle" style="max-width:50%; height:200px" src="{{url('/images/blank-profile-picture-973460_640.png')}}">
+@endif
 </div>
 <div class="form group">
     <input type="file" name="avatar" >

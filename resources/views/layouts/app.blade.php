@@ -66,18 +66,37 @@
         </button>
 
 
-
         <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
         @if(Sentinel::check())
         <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-            <a class="nav-link"   href="{{route('user.profile',Sentinel::getUser()->id)}}">{{Sentinel::getUser()->first_name}} {{Sentinel::getUser()->last_name}} </a>
+            <a class="nav-link"   href="{{route('user.profile',Sentinel::getUser()->id)}}">{{Sentinel::getUser()->first_name}} {{Sentinel::getUser()->last_name}}
+                @if(Sentinel::getUser()->avatar)
+                <img class="img-profile rounded-circle" style="
+                height: auto;
+                width: auto;
+                max-height: 35px;
+                max-width: 35px;"
+                src="{{route('profile.picture')}}">
+            @else
+
+                <img class="img-profile rounded-circle" style="
+                height: auto;
+                width: auto;
+                max-height: 35px;
+                max-width: 35px;"
+                src="{{ url('/images/blank-profile-picture-973460_640.png')}}">
+
+            @endif
+            </a>
         </li>
     </ul>
     @endif
         <ul class="navbar-nav px-3">
           <li class="nav-item text-nowrap">
+              @if(Sentinel::check())
             <a  class="nav-link" href="{{route('user.logout')}}">Log out</a>
+            @endif
 
           </li>
 

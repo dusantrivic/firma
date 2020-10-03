@@ -38,6 +38,8 @@ Route::get('/verificate/{user}/{kod}', 'UserController@verificateForm')->name('u
 Route::middleware(['sentinelauth' ])->group(function(){
 
 Route::get('/user/{user}/profile','UserController@userprofile')->name('user.profile');
+Route::get('/user/image','UserController@getUserImage')->name('profile.picture');
+
 Route::get('/user/{user}/orders','ChartController@orders')->name('user.orders');
 Route::get('/products','ProductsController@products')->name('products');
 Route::post('/cart/{id}','ProductsController@addproduct')->name('add.to.chart');

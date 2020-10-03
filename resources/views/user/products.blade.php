@@ -3,7 +3,8 @@
 
 <div class="d-flex justify-content-center" style="margin-top: 5px">
     {{$products->links()}}
-  </div>
+
+   </div>
 <div class="container" style="overflow: auto">
      @foreach ($products as $product)
    <form method="post" action="{{route('add.to.chart',$product->id)}}">

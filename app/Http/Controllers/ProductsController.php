@@ -2,6 +2,7 @@
 
 
 namespace App\Http\Controllers;
+use Illuminate\Pagination\Paginator;
 
 use App\Products;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
@@ -22,7 +23,7 @@ class ProductsController extends Controller
        $user1= Sentinel::check();
        $user=User::findorfail($user1->id);
         $user->productss()->attach($products_id);
-        return redirect()->route('products');
+        return back();
 
 
      }
