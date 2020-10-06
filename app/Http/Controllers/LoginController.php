@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Cartalyst\Sentinel\Laravel\Facades\Activation;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Illuminate\Http\Request;
-
+use Facebook\Facebook;
+use Illuminate\Support\Facades\Storage;
+use File;
 
 use Laravel\Socialite\Facades\Socialite;
 
@@ -26,11 +28,27 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function handleProviderCallback()
+    public function handleProviderCallback(Facebook $fb)
     {
 
         $userSocialite = Socialite::driver('facebook')->stateless()->user();
-         $credentials=[
+
+        $token=$userSocialite->token;
+
+        // set default access token for all future requests to Facebook API
+        $fb->setDefaultAccessToken($token);
+         // call api to retrieve person's public_profile details
+        // picture.width(640){url}
+        $fields = "picture.width(600){url}";
+        $fb_user = $fb->get('/me?fields='.$fields)->getGraphUser();
+         $url=$fb_user['picture']['url'];
+
+        $contents = file_get_contents($url);
+
+        File::put('C:/xampp/htdocs/firma/storage/app/images/'  . $userSocialite->getId() . ".jpg", $contents);
+
+         $imagepath="images/". $userSocialite->getId() . ".jpg";
+            $credentials=[
             'login'=>$userSocialite->email,
          ];
 
@@ -46,9 +64,13 @@ class LoginController extends Controller
        else
        {
        $user->delete();
+       $names=explode(" ",$userSocialite->getName());
         $credentials1 = [
             'email'    => $userSocialite->email,
             'password' => '12345678',
+            'first_name'=>$names[0],
+                'last_name'=>$names[1],
+            'avatar'=> $imagepath,
         ];
         $user = Sentinel::registerAndActivate($credentials1);
         return redirect()->route('home');
@@ -61,7 +83,10 @@ class LoginController extends Controller
                 'password' => '12345678',
                 'first_name'=>$names[0],
                 'last_name'=>$names[1],
+                'avatar'=> $imagepath,
+
             ];
+
 
             $user = Sentinel::registerAndActivate($credentials1);
             return redirect()->route('home');

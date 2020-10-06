@@ -73,3 +73,5 @@ Route::get('login/facebook/callback', 'LoginController@handleProviderCallback');
 
 Route::get('oauth/redirect','OAuthController@redirect')->name('redirect');
 Route::get('oauth/callback','OAuthController@callback');
+
+Route::get('facebook', 'FacebookUser@store');

@@ -21,7 +21,8 @@
         "laravel/ui": "^2.4",
         "paypal/rest-api-sdk-php": "^1.14",
         "srmklive/paypal": "^1.8",
-        "symfony/http-foundation": "^5.1"
+        "symfony/http-foundation": "^5.1",
+        "facebook/graph-sdk" : "~5.0"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

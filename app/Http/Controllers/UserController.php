@@ -133,7 +133,6 @@ class UserController extends Controller
         ]);
 
 
-
         // if(request('avatar')){
         //            $inputs['avatar']=request('avatar')->store('images');
         //        }
